@@ -7,3 +7,7 @@ function doGet(e){
     .setTitle('askoritaa')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
+
+function getPageContent(filename) {
+  return HtmlService.createHtmlOutputFromFile(filename).getContent();
+}

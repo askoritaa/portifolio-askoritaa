@@ -8,249 +8,167 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <style>
-    /* ==========================================================
-       Paleta (Coolors p1) — altere as cores apenas aqui
-       ========================================================== */
-    :root {
-      --oliva:   #857E61;
-      --taupe:   #B7A196;
-      --rosa:    #DDC3D0;
-      --lavanda: #DBDAEA;
-      --gelo:    #DBFCFF;
-
-      /* Neutros para legibilidade */
-      --preto:  #000000;
-      --branco: #FFFFFF;
-
-      /* Papéis semânticos */
-      --bg:            var(--gelo);
-      --bg-secundario: var(--lavanda);
-      --superficie:    var(--branco);
-      --texto:         rgba(0, 0, 0, .88);
-      --texto-suave:   rgba(0, 0, 0, .68);
-      --destaque:      var(--oliva);
-      --destaque-2:    var(--rosa);
-      --borda:         var(--taupe);
-      --link:          var(--preto);
-
-      /* Tipografia e medidas */
-      --fonte-titulo: "Bricolage Grotesque", system-ui, sans-serif;
-      --fonte-texto:  "Newsreader", Georgia, serif;
-      --fonte-codigo: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-      --espaco:       clamp(1.25rem, 4vw, 3rem);
-      --largura:      68rem;
-    }
-
-    /* ---------- Base ---------- */
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--texto);
-      font-family: var(--fonte-texto);
-      font-size: 1.125rem;
-      line-height: 1.65;
-    }
-    h1, h2, h3 {
-      font-family: var(--fonte-titulo);
-      color: var(--preto);
-      line-height: 1.1;
-      letter-spacing: -.02em;
-      margin: 0 0 1rem;
-    }
-    h1 { font-size: clamp(2.75rem, 8vw, 5.5rem); font-weight: 800; letter-spacing: -.035em; }
-    h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; }
-    h3 { font-size: 1.25rem; font-weight: 700; }
-    p  { margin: 0 0 1rem; max-width: 62ch; }
-    a  { color: var(--link); text-decoration: underline; text-decoration-color: var(--destaque); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-    a:hover { background: var(--destaque-2); }
-    :focus-visible { outline: 3px solid var(--preto); outline-offset: 3px; }
-    ul, ol { margin: 0; padding: 0; }
-
-    .miolo { max-width: var(--largura); margin: 0 auto; }
-    .secao { padding: 4rem var(--espaco); }
-    .secao--alt { background: var(--bg-secundario); }
-    .texto-suave { color: var(--texto-suave); }
-
-    .pular { position: absolute; left: -999px; }
-    .pular:focus { left: 1rem; top: 1rem; background: var(--branco); padding: .5rem 1rem; z-index: 10; }
-
-    /* ---------- Faixa da paleta e topo ---------- */
-    .faixa { display: grid; grid-template-columns: repeat(5, 1fr); height: 12px; }
-    .faixa span:nth-child(1) { background: var(--oliva); }
-    .faixa span:nth-child(2) { background: var(--taupe); }
-    .faixa span:nth-child(3) { background: var(--rosa); }
-    .faixa span:nth-child(4) { background: var(--lavanda); }
-    .faixa span:nth-child(5) { background: var(--gelo); }
-
-    .topo { background: var(--bg-secundario); border-bottom: 2px solid var(--destaque); padding: 1rem var(--espaco); }
-    .topo .miolo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 2rem; }
-    .marca { font-family: var(--fonte-titulo); font-weight: 800; font-size: 1.35rem; text-decoration: none; }
-    .menu { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; list-style: none; font-family: var(--fonte-titulo); font-weight: 500; }
-    .menu a { text-decoration: none; padding: .25rem .5rem; border-radius: .25rem; }
-    .menu a[aria-current="page"] { background: var(--destaque-2); }
-
-    /* ---------- Hero ---------- */
-    .hero { padding: clamp(3rem, 8vw, 6rem) var(--espaco); }
-    .hero .miolo { display: grid; gap: 3rem; align-items: center; }
-    .hero p.lead { font-size: 1.35rem; color: var(--texto-suave); }
-    .acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
-
-    .botao {
-      display: inline-block;
-      padding: .75rem 1.5rem;
-      border-radius: .5rem;
-      background: var(--destaque);
-      color: var(--preto);
-      font-family: var(--fonte-titulo);
-      font-weight: 700;
-      text-decoration: none;
-      border: 2px solid var(--destaque);
-    }
-    .botao:hover { background: var(--destaque-2); border-color: var(--destaque); }
-    .botao--sec { background: var(--destaque-2); border-color: var(--borda); }
-    .botao--sec:hover { background: var(--bg-secundario); }
-
-    /* Área reservada para imagem/ilustração: barras da paleta */
-    .barras { display: flex; align-items: flex-end; gap: .75rem; height: 20rem; }
-    .barras span { flex: 1; border: 2px solid var(--borda); border-radius: .5rem .5rem 0 0; }
-    .barras span:nth-child(1) { height: 100%; background: var(--oliva); }
-    .barras span:nth-child(2) { height: 76%;  background: var(--taupe); }
-    .barras span:nth-child(3) { height: 58%;  background: var(--rosa); }
-    .barras span:nth-child(4) { height: 82%;  background: var(--lavanda); }
-    .barras span:nth-child(5) { height: 44%;  background: var(--gelo); }
-
-    /* ---------- Cards, tags, passos, código ---------- */
-    .cartoes { display: grid; gap: 1.25rem; margin-top: 2rem; }
-    .cartao { background: var(--superficie); border: 2px solid var(--borda); border-radius: .5rem; padding: 1.5rem; }
-    .cartao--destaque { background: var(--destaque-2); }
-    .cartao p { margin-bottom: 1rem; }
-
-    .tags { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; margin-top: 1.5rem; }
-    .tags li { background: var(--destaque-2); color: var(--preto); border: 2px solid var(--borda); border-radius: 999px; padding: .25rem 1rem; font-family: var(--fonte-titulo); font-weight: 500; font-size: 1rem; }
-
-    .passos { list-style: none; counter-reset: passo; display: grid; gap: 1rem; margin-top: 2rem; }
-    .passos li { counter-increment: passo; display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; background: var(--superficie); border: 2px solid var(--borda); border-radius: .5rem; padding: 1.25rem 1.5rem; }
-    .passos li::before { content: counter(passo); font-family: var(--fonte-titulo); font-weight: 800; font-size: 2rem; line-height: 1; color: var(--preto); }
-    .passos h3, .passos p { grid-column: 2; margin-bottom: .25rem; }
-
-    .codigo { background: var(--superficie); border: 2px solid var(--borda); border-radius: .5rem; padding: 1.25rem 1.5rem; overflow-x: auto; font-family: var(--fonte-codigo); font-size: .95rem; line-height: 1.6; color: var(--preto); margin: 2rem 0 0; }
-
-    .lista-links { list-style: none; display: grid; gap: .5rem; margin-top: 1.5rem; }
-
-    /* ---------- Rodapé ---------- */
-    .rodape { background: var(--destaque); color: var(--preto); padding: 2rem var(--espaco); font-family: var(--fonte-titulo); }
-    .rodape p { margin: 0; max-width: none; }
-    .rodape a { color: var(--preto); text-decoration-color: var(--preto); }
-
-    /* ---------- Telas maiores ---------- */
-    @media (min-width: 48rem) {
-      .hero .miolo { grid-template-columns: 1.3fr 1fr; }
-      .cartoes { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-    }
+    <style>
+      /* ==========================================================
+         Paleta (Coolors p1) — altere as cores apenas aqui
+         ========================================================== */
+      :root {
+        --oliva:   #857E61;
+        --taupe:   #B7A196;
+        --rosa:    #DDC3D0;
+        --lavanda: #DBDAEA;
+        --gelo:    #DBFCFF;
+    
+        /* Neutros para legibilidade */
+        --preto:  #000000;
+        --branco: #FFFFFF;
+    
+        /* Papéis semânticos */
+        --bg:            var(--gelo);
+        --bg-secundario: var(--lavanda);
+        --superficie:    var(--branco);
+        --texto:         rgba(0, 0, 0, .88);
+        --texto-suave:   rgba(0, 0, 0, .68);
+        --destaque:      var(--oliva);
+        --destaque-2:    var(--rosa);
+        --borda:         var(--taupe);
+        --link:          var(--preto);
+    
+        /* Tipografia e medidas */
+        --fonte-titulo: "Bricolage Grotesque", system-ui, sans-serif;
+        --fonte-texto:  "Newsreader", Georgia, serif;
+        --fonte-codigo: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+        --espaco:       clamp(1.25rem, 4vw, 3rem);
+        --largura:      68rem;
+      }
+  
+      /* ---------- Base ---------- */
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--texto);
+        font-family: var(--fonte-texto);
+        font-size: 1.125rem;
+        line-height: 1.65;
+      }
+      h1, h2, h3 {
+        font-family: var(--fonte-titulo);
+        color: var(--preto);
+        line-height: 1.1;
+        letter-spacing: -.02em;
+        margin: 0 0 1rem;
+      }
+      h1 { font-size: clamp(2.75rem, 8vw, 5.5rem); font-weight: 800; letter-spacing: -.035em; }
+      h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; }
+      h3 { font-size: 1.25rem; font-weight: 700; }
+      p  { margin: 0 0 1rem; max-width: 62ch; }
+      a  { color: var(--link); text-decoration: underline; text-decoration-color: var(--destaque); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      a:hover { background: var(--destaque-2); }
+      :focus-visible { outline: 3px solid var(--preto); outline-offset: 3px; }
+      ul, ol { margin: 0; padding: 0; }
+  
+      .miolo { max-width: var(--largura); margin: 0 auto; }
+      .secao { padding: 4rem var(--espaco); }
+      .secao--alt { background: var(--bg-secundario); }
+      .texto-suave { color: var(--texto-suave); }
+  
+      .pular { position: absolute; left: -999px; }
+      .pular:focus { left: 1rem; top: 1rem; background: var(--branco); padding: .5rem 1rem; z-index: 10; }
+  
+      /* ---------- Faixa da paleta e topo ---------- */
+      /* .faixa { display: grid; grid-template-columns: repeat(5, 1fr); height: 12px; }
+      .faixa span:nth-child(1) { background: var(--oliva); }
+      .faixa span:nth-child(2) { background: var(--taupe); }
+      .faixa span:nth-child(3) { background: var(--rosa); }
+      .faixa span:nth-child(4) { background: var(--lavanda); }
+      .faixa span:nth-child(5) { background: var(--gelo); } */
+  
+      .topo { background: var(--bg-secundario); border-bottom: 2px solid var(--destaque); padding: 1rem var(--espaco); }
+      .topo .miolo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 2rem; }
+      .marca { font-family: var(--fonte-titulo); font-weight: 800; font-size: 1.35rem; text-decoration: none; }
+      .menu { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; list-style: none; font-family: var(--fonte-titulo); font-weight: 500; }
+      .menu a { text-decoration: none; padding: .25rem .5rem; border-radius: .25rem; }
+      .menu a[aria-current="page"] { background: var(--destaque-2); }
+  
+      /* ---------- Hero ---------- */
+      .hero { padding: clamp(3rem, 8vw, 6rem) var(--espaco); }
+      .hero .miolo { display: grid; gap: 3rem; align-items: center; }
+      .hero p.lead { font-size: 1.35rem; color: var(--texto-suave); }
+      .acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  
+      .botao {
+        display: inline-block;
+        padding: .75rem 1.5rem;
+        border-radius: .5rem;
+        background: var(--destaque);
+        color: var(--preto);
+        font-family: var(--fonte-titulo);
+        font-weight: 700;
+        text-decoration: none;
+        border: 2px solid var(--destaque);
+      }
+      .botao:hover { background: var(--destaque-2); border-color: var(--destaque); }
+      .botao--sec { background: var(--destaque-2); border-color: var(--borda); }
+      .botao--sec:hover { background: var(--bg-secundario); }
+  
+      /* Área reservada para imagem/ilustração: barras da paleta */
+      .barras { display: flex; align-items: flex-end; gap: .75rem; height: 20rem; }
+      .barras span { flex: 1; border: 2px solid var(--borda); border-radius: .5rem .5rem 0 0; }
+      .barras span:nth-child(1) { height: 100%; background: var(--oliva); }
+      .barras span:nth-child(2) { height: 76%;  background: var(--taupe); }
+      .barras span:nth-child(3) { height: 58%;  background: var(--rosa); }
+      .barras span:nth-child(4) { height: 82%;  background: var(--lavanda); }
+      .barras span:nth-child(5) { height: 44%;  background: var(--gelo); }
+  
+      /* ---------- Cards, tags, passos, código ---------- */
+      .cartoes { display: grid; gap: 1.25rem; margin-top: 2rem; }
+      .cartao { background: var(--superficie); border: 2px solid var(--borda); border-radius: .5rem; padding: 1.5rem; }
+      .cartao--destaque { background: var(--destaque-2); }
+      .cartao p { margin-bottom: 1rem; }
+  
+      .tags { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; margin-top: 1.5rem; }
+      .tags li { background: var(--destaque-2); color: var(--preto); border: 2px solid var(--borda); border-radius: 999px; padding: .25rem 1rem; font-family: var(--fonte-titulo); font-weight: 500; font-size: 1rem; }
+  
+      .passos { list-style: none; counter-reset: passo; display: grid; gap: 1rem; margin-top: 2rem; }
+      .passos li { counter-increment: passo; display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; background: var(--superficie); border: 2px solid var(--borda); border-radius: .5rem; padding: 1.25rem 1.5rem; }
+      .passos li::before { content: counter(passo); font-family: var(--fonte-titulo); font-weight: 800; font-size: 2rem; line-height: 1; color: var(--preto); }
+      .passos h3, .passos p { grid-column: 2; margin-bottom: .25rem; }
+  
+      .codigo { background: var(--superficie); border: 2px solid var(--borda); border-radius: .5rem; padding: 1.25rem 1.5rem; overflow-x: auto; font-family: var(--fonte-codigo); font-size: .95rem; line-height: 1.6; color: var(--preto); margin: 2rem 0 0; }
+  
+      .lista-links { list-style: none; display: grid; gap: .5rem; margin-top: 1.5rem; }
+  
+      /* ---------- Rodapé ---------- */
+      .rodape { background: var(--destaque); color: var(--preto); padding: 2rem var(--espaco); font-family: var(--fonte-titulo); }
+      .rodape p { margin: 0; max-width: none; }
+      .rodape a { color: var(--preto); text-decoration-color: var(--preto); }
+  
+      /* ---------- Telas maiores ---------- */
+      @media (min-width: 48rem) {
+        .hero .miolo { grid-template-columns: 1.3fr 1fr; }
+        .cartoes { grid-template-columns: repeat(3, 1fr); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
     </style>
 </head>
 <body>
-  <a class="pular" href="#principal">Pular para o conteúdo</a>
-
-  <div class="faixa" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-
-  <header class="topo">
-    <div class="miolo">
-      <a class="marca">SOCOROOOOOOOO</a>
-      <nav aria-label="Principal">
-        <ul class="menu">
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#projetos">Projetos</a></li>
-          <li><a href="#habilidades">Habilidades</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
+    <div id="content">
+      <script>
+        document.addEventListener('DOMContentLoaded', goToPage('principal'))
+      </script>
     </div>
-  </header>
-
-  <main id="principal">
-    <section class="hero">
-      <div class="miolo">
-        <div>
-          <h1>Seu nome ou título principal</h1>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          <div class="acoes">
-            <a class="botao" href="#projetos">Ver projetos</a>
-            <a class="botao botao--sec" href="#contato">Entrar em contato</a>
-          </div>
-        </div>
-        <!-- Troque as barras por uma imagem ou ilustração quando quiser -->
-        <div class="barras" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-      </div>
-    </section>
-
-    <section class="secao secao--alt" id="sobre">
-      <div class="miolo">
-        <h2>Título da seção sobre</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio praesent libero, sed cursus ante dapibus diam. Sed nisi nulla quis sem at nibh elementum imperdiet.</p>
-        <p class="texto-suave">Duis sagittis ipsum praesent mauris. Fusce nec tellus sed augue semper porta mauris massa.</p>
-      </div>
-    </section>
-
-    <section class="secao" id="projetos">
-      <div class="miolo">
-        <h2>Título da seção de projetos</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <div class="cartoes">
-          <article class="cartao cartao--destaque">
-            <h3>Google Apps Script</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-            <a href="google-apps-script.html">Ver apresentação</a>
-          </article>
-          <article class="cartao">
-            <h3>Título do projeto</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-            <a href="#">Ver projeto</a>
-          </article>
-          <article class="cartao">
-            <h3>Título do projeto</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-            <a href="#">Ver projeto</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="secao secao--alt" id="habilidades">
-      <div class="miolo">
-        <h2>Título da seção de habilidades</h2>
-        <ul class="tags">
-          <li>Habilidade</li>
-          <li>Habilidade</li>
-          <li>Habilidade</li>
-          <li>Habilidade</li>
-          <li>Habilidade</li>
-          <li>Habilidade</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="secao" id="contato">
-      <div class="miolo">
-        <h2>Título da seção de contato</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <ul class="lista-links">
-          <li><a href="mailto:email@exemplo.com">email@exemplo.com</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">GitHub</a></li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer class="rodape">
-    <div class="miolo"><p>&copy; 2026 Seu Nome. Texto do rodapé.</p></div>
-  </footer>
+    <script>
+      function goToPage(pageName) {
+        google.script.run
+          .withSuccessHandler(function(html) {
+            document.getElementById('content').innerHTML = html;
+          })
+          .getPageContent(pageName);
+      }
+    </script>
 </body>
 </html>
