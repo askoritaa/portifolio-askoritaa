@@ -1,6 +1,6 @@
 # VAREJO DIGITAL NA INDUSTRIA DOS GAMES
 ## Introdução
-Neste projeto, será feita uma analise aprofundada dos dados publicos do mercado de varejo geral e especializado em algum setor especifico, a principio o foco é o varejo de video games e de moveis para casa. Vamos ver a história desses setores no Brasil e montar num formato de linha do tempo. Principais empresas, principais acontecimentos, importancia desse setor no pais e globalmente, etc.
+Apesar de ter começado com uma visão ampla de diversos setores do varejo, este projeto se voltou para analises especificamente sobre a industria dos games. Este projeto tem como finalidade principal praticar e expor tecnologias que venho estudando, em especial Google app script. A tematica de videogames foi escolhida por ser o principal hobbie do meu dia a dia porém este é um estudo com teor academico que visa aplicar conceitos reais de analise e ciencia de dados.
 
 ## Tecnologias utilizadas
 - git/github
