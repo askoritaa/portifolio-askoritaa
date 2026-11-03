@@ -153,22 +153,112 @@
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
       }
+
+      /* Animações (Scroll) - Adicionar no final do <style> do index.html */
+.animar-surgir {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animar-surgir.visivel { opacity: 1; transform: translateY(0); }
+.atraso-1 { transition-delay: 0.1s; }
+.atraso-2 { transition-delay: 0.2s; }
+.atraso-3 { transition-delay: 0.3s; }
+
+/* Animação contínua das barras (efeito equalizador/gráfico vivo) */
+.barras span {
+  flex: 1;
+  border: 2px solid var(--borda);
+  border-radius: .5rem .5rem 0 0;
+  transform-origin: bottom;
+  /* 'infinite' faz rodar para sempre, e 'alternate' cria o efeito de vai-e-vem */
+  animation: equalizador 1.2s ease-in-out infinite alternate;
+}
+
+/* O "range" de valores da animação */
+@keyframes equalizador {
+  0% { transform: scaleY(0.3); } /* Barra encolhe até 30% da altura original */
+  100% { transform: scaleY(1); } /* Barra cresce até 100% da altura original */
+}
+
+/* 
+  Atribuímos durações e atrasos diferentes para cada barra.
+  Isso quebra a sincronia e cria aquele efeito orgânico de gráfico se mexendo.
+*/
+.barras span:nth-child(1) { height: 100%; animation-delay: 0.0s; animation-duration: 2.1s; background: var(--oliva); }
+.barras span:nth-child(2) { height: 76%;  animation-delay: 0.3s; animation-duration: 2.3s; background: var(--taupe); }
+.barras span:nth-child(3) { height: 58%;  animation-delay: 0.1s; animation-duration: 2.0s; background: var(--rosa); }
+.barras span:nth-child(4) { height: 82%;  animation-delay: 0.4s; animation-duration: 2.4s; background: var(--lavanda); }
+.barras span:nth-child(5) { height: 44%;  animation-delay: 0.2s; animation-duration: 2.2s; background: var(--gelo); }
+
+/* Estilo para vídeos incorporados (iframes) */
+.video-destaque {
+  position: relative;
+  padding-bottom: 56.25%; /* Mantém a proporção 16:9 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  border: 10px solid var(--borda);
+  border-radius: .5rem;
+  background: var(--superficie);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Sombra suave para dar destaque */
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  margin: 2rem 0; /* Espaçamento em cima e embaixo */
+}
+
+/* Efeito ao passar o mouse por cima do vídeo */
+.video-destaque:hover {
+  transform: translateY(-5px);
+  border-color: var(--preto);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Remove a borda padrão do iframe e faz ele preencher o espaço */
+.video-destaque iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: calc(.5rem - 2px); /* Ajusta o cantinho do vídeo à borda externa */
+}
     </style>
 </head>
 <body>
     <div id="content">
       <script>
-        document.addEventListener('DOMContentLoaded', goToPage('principal'))
+        document.addEventListener('DOMContentLoaded', () => {
+          goToPage('principal');
+        });
       </script>
     </div>
     <script>
-      function goToPage(pageName) {
-        google.script.run
-          .withSuccessHandler(function(html) {
-            document.getElementById('content').innerHTML = html;
-          })
-          .getPageContent(pageName);
-      }
+      function iniciarAnimacoes() {
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visivel');
+          observer.unobserve(entry.target); 
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animar-surgir').forEach(el => scrollObserver.observe(el));
+  }
+
+  function goToPage(pageName) {
+    google.script.run
+      .withSuccessHandler(function(html) {
+        document.getElementById('content').innerHTML = html;
+        // Inicia as animações logo após carregar o conteúdo da nova página
+        iniciarAnimacoes(); 
+        // Rola para o topo ao trocar de página
+        window.scrollTo(0, 0); 
+      })
+      .getPageContent(pageName);
+    }
     </script>
 </body>
 </html>
