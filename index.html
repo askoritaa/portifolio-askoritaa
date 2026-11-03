@@ -223,6 +223,33 @@
   border: none;
   border-radius: calc(.5rem - 2px); /* Ajusta o cantinho do vídeo à borda externa */
 }
+
+/* CSS da Galeria de Imagens */
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.galeria-item {
+  border: 2px solid var(--borda);
+  border-radius: .5rem;
+  overflow: hidden;
+  background: var(--superficie);
+  aspect-ratio: 4/3; /* Deixa as miniaturas padronizadas, independente do tamanho original */
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.galeria-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--preto);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Corta o excesso da imagem sem achatar */
+  display: block;
+}
     </style>
 </head>
 <body>
@@ -255,10 +282,38 @@
         // Inicia as animações logo após carregar o conteúdo da nova página
         iniciarAnimacoes(); 
         // Rola para o topo ao trocar de página
+        carregarGaleria();
         window.scrollTo(0, 0); 
       })
       .getPageContent(pageName);
     }
+
+    function carregarGaleria() {
+  const container = document.getElementById('galeria-projetos');
+  // Se a página atual não tiver a galeria, a função para por aqui
+  if (!container) return; 
+
+  container.innerHTML = '<p class="texto-suave">Carregando imagens do Drive...</p>';
+
+  google.script.run
+    .withSuccessHandler(function(imagens) {
+      if (imagens.length === 0) {
+        container.innerHTML = '<p class="texto-suave">Nenhuma imagem encontrada.</p>';
+        return;
+      }
+      
+      container.innerHTML = ''; // Limpa a mensagem de carregando
+      
+      imagens.forEach(img => {
+        container.innerHTML += `
+          <div class="galeria-item">
+            <img src="${img.url}" alt="${img.nome}" loading="lazy">
+          </div>
+        `;
+      });
+    })
+    .getImagensDoDrive();
+}
     </script>
 </body>
 </html>
